@@ -16,7 +16,8 @@ docker build -t prenotaci .
 ```
 
 Bisogna poi configurare le seguenti variabili di ambiente.
-- `EMAIL`: email dove ricevere la notifica.
+- `TELEGRAM_BOT_TOKEN`: toekn del bot Telegram utilizzato per ricevere notifiche.
+- `TELEGRAM_CHAT_ID`: chat id di Telegram.
 - `USERNAME`: username sito [prenotaci.aci.it](https://prenotaci.aci.it/).
 - `PASSWORD`: password sito [prenotaci.aci.it](https://prenotaci.aci.it/).
 - `TARGA`: targa del veicolo.
