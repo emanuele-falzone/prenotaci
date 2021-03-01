@@ -3,6 +3,7 @@
 const { checkEnv } = require('./utils');
 const { login, getDates, isDateAvailable } = require('./api');
 const TelegramBot = require('node-telegram-bot-api');
+const debug = require('debug')('prenotaci');
 
 const TELEGRAM_BOT_TOKEN = checkEnv('TELEGRAM_BOT_TOKEN');
 const TELEGRAM_CHAT_ID = checkEnv('TELEGRAM_CHAT_ID');
@@ -18,6 +19,7 @@ async function main() {
     bot.sendMessage(TELEGRAM_CHAT_ID, `Sono operativo!`);
 
     while(true) {
+        debug('Inizio il controllo.')
         const access_token = await login(USERNAME, PASSWORD);
 
         const date = await getDates(access_token, ID_UFFICIO_PRA);
@@ -25,12 +27,14 @@ async function main() {
             if (await isDateAvailable(access_token, data, ID_UFFICIO_PRA, ID_PRATICA, TARGA, TIPO_VEICOLO)) {
                 bot.sendMessage(TELEGRAM_CHAT_ID, `Disponibile ${data}`);
             }
+            debug(`Data ${data} non disponibile.`)
         }
+        
         await sleep(60000)
     }
 }
 
-main().catch(console.error);
+main().catch(debug);
 
 function sleep(ms) {
   return new Promise((resolve) => {
