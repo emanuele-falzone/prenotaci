@@ -10,4 +10,5 @@ COPY index.js index.js
 COPY utils.js utils.js
 COPY api.js api.js
 
-CMD [ "npm", "start"]
+ENV DEBUG=prenotaci
+CMD ["npm", "start"]
